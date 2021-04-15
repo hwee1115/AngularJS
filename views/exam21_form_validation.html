@@ -1,9 +1,26 @@
+<style>
+  form .ng-invalid-required.ng-dirty, form .ng-invalid-minlength.ng-dirty, form .ng-invalid-maxlength.ng-dirty, form .ng-invalid-email.ng-dirty{
+    background-color: lightpink;
+  }
+
+  form .ng-valid.ng-dirty{
+    background-color: lightcyan;
+
+  }
+
+  div.error{
+    color:lightsalmon;
+    font-size:0.8em;
+    font-weight: bold;
+  }
+</style>
+
 <div class="card">
   <div class="card-header">
     exam21_form_validation
   </div>
   <div class="card-body">
-    <form name="joinForm" novalidate>
+    <form name="joinForm" novalidate ng-submit="addUser()">
       <div class="form-group">
         <label>아이디</label>
         <input name="uid" type="text" class="form-control"
@@ -14,9 +31,69 @@
         ng-pattern="/^[a-z]/"/>
         <div ng-show="joinForm.uid.$invalid && joinForm.uid.$dirty">
           <span ng-show="joinForm.uid.$error.required">필수 입력 사항입니다.</span>
+          <span ng-show="joinForm.uid.$error.minlength">3자 이상을 입력해주세요.</span>
+          <span ng-show="joinForm.uid.$error.maxlength">10자 이하로 입력해주세요.</span>
+          <span ng-show="joinForm.uid.$error.patten">알파벳으로 시작해야합니다.</span>
         </div>
       </div>
-
+      <!-- email -->
+      <div class="form-group">
+        <label>이메일</label>
+        <input name="uemail" type="email" class="form-control"
+        ng-model="user.uemail"
+        ng-required="true"/>
+        <div ng-show="joinForm.uemail.$invalid && joinForm.uemail.$dirty">
+          <span ng-show="joinForm.uid.$error.required">필수 입력 사항입니다.</span>
+          <span ng-show="joinForm.uid.$error.email">이메일 형식이 아닙니다.</span> <!--앵귤러 자체에서 이메일 형식의 유효성검사를 가지고 있음-->
+        </div>
+      </div>
+      <!--textarea-->
+      <div class="form-group">
+        <label>하고 싶은 말</label>
+        <textarea name="comment" type="text" class="form-control"
+        ng-model="user.comment"
+        ng-required="true"
+        ng-minlength="2"
+        ng-maxlength="3000"></textarea>
+        <div ng-show="joinForm.comment.$invalid && joinForm.comment.$dirty">
+          <span ng-show="joinForm.comment.$error.required">필수 입력 사항입니다.</span>
+          <span ng-show="joinForm.comment.$error.minlength">2자 이상을 입력해주세요.</span>
+          <span ng-show="joinForm.comment.$error.maxlength">3000자 이하로 입력해주세요.</span>
+        </div>
+      </div>
+      <!-- checkbox -->
+        <div class="form-group">
+          <input name="public" type="checkbox"
+                 ng-model="user.public" 
+                 ng-true-value="'공개'"
+                 ng-false-value="'미공개'"/>공개여부
+          <div>
+            공개 여부: {{user.public}}
+          </div>
+        </div>
+        <!--select-->
+        <div class="form-group">
+          <select name="city" ng-model="user.city" ng-required="true">
+            <option value="">도시 선택</option>
+            <option ng-repeat="city in cities">{{city}}</option>
+          </select>
+            <div ng-show="joinForm.city.$invalid && joinForm.city.$dirty">
+              <span ng-show="joinForm.city.$error.required">필수 입력 사항입니다.</span>
+            </div>
+          <!--<div>
+            선택도시 : {{user.city}}
+          </div>-->
+        </div>
+        <div class="form-group">
+          <select name="job" ng-model="user.job" ng-required="true">
+            <option value="">도시 선택</option>
+            <option ng-repeat="job in jobs" ng-value="job.id">{{job.name}}</option> <!-- ng-model에 ng-value에 값이 들어감-->
+          </select>
+          <div ng-show="joinForm.job.$invalid && joinForm.job.$dirty">
+            <span ng-show="joinForm.job.$error.required">필수 입력 사항입니다.</span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm mt-3" ng-disabled="joinForm.$invalid">가입</button>
     </form>
   </div>
 </div>
