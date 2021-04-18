@@ -29,5 +29,10 @@ angular.module("app")
      .when("/exam20_boolean-directive", {templateUrl: "views/exam20_boolean-directive.html",controller:"exam20Controller"})
      .when("/exam21_form_validation", {templateUrl: "views/exam21_form_validation.html",controller:"exam21Controller"})
      .when("/exam22_filter", {templateUrl: "views/exam22_filter.html",controller:"exam22Controller"})
+     .when("/exam23_service_declaration", {templateUrl: "views/exam23_service_declaration.html",controller:"exam23Controller"})
+
+     .when("/exam24_bulitin_service", {templateUrl: "views/exam24_bulitin_service/index.html",controller:"exam24Controller"})
+     .when("/exam24_bulitin_service/boards", {templateUrl: "views/exam24_bulitin_service/boards.html",controller:"exam24Controller"})
+     .when("/exam24_bulitin_service/boards/:bno", {templateUrl: "views/exam24_bulitin_service/boards.html",controller:"exam24Controller"})
      .otherwise({redirectTo:"/"})
 });

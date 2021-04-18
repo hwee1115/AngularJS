@@ -1,6 +1,8 @@
  angular.module("app", ["ngRoute","exam03Module","exam04Module"])
-    .config(function() {
-        console.log("app- config callback")
+    .config(function(counterServiceByProviderProvider,$logProvider) {
+        console.log("app- config callback");
+        counterServiceByProviderProvider.setCount(100);
+        $logProvider.debugEnabled(true);
     })
     .run(function($rootScope) {
         console.log("app- run callback");
